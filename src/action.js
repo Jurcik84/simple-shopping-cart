@@ -10,16 +10,27 @@ export function getSum() {
     }
 }
 
+export function addToCart(item, index) {
 
-export function addToCart(item,index){
+    return function (dispatch) {
 
-    return function(dispatch){
+        dispatch({
+            type: "ADD_TO_CART",
+            item,
+            index
+        });
 
-         dispatch({
-             type: "ADD_TO_CART",
-             item,
-             index
-         })
+        dispatch({
+            type: "UPDATE_CART",
+            item,
+            index
+        }),
+
+        dispatch({
+
+            type: 'CART_STATISTICS',
+            item,index
+        })
 
     }
 }

@@ -20,8 +20,6 @@ function reduceAmount(state, action) {
     }
 }
 
-
-
 function addToCartReducer(state, action) {
 
     switch (action.type) {
@@ -50,6 +48,29 @@ export function reducer(state = {}, action) {
                 }, 0)
             }
 
+        case "UPDATE_CART":
+
+            return {
+                ...state,
+                cart: [...state.cart, { ...action.item }]
+
+            };
+
+        case "CART_STATISTICS":
+            return {
+                ...state,
+                basket: [...state.cart].reduce((sumOject, nextItem) => {
+
+                    sumOject[nextItem.id] = (sumOject[nextItem.id] || 0) + 1;
+                    sumOject[nextItem.name] = (sumOject[nextItem.name] || 0) + 1;
+
+                    return sumOject;
+
+                }, {})
+
+            }
+
+
         case "GET_ITEM_COUNT":
             return {
                 ...state,
@@ -59,18 +80,18 @@ export function reducer(state = {}, action) {
         case "ADD_TO_CART":
 
             const _addToCart = addToCartReducer(state, action);
-
             console.log("_addToCart", _addToCart)
 
             return {
                 ...state,
-                cart: [...state.cart, {
-                    ...action.item
-                }],
+                // cart: [...state.cart, {
+                //     ...action.item
+                // }],
+                // stock hold what is in store
                 stock: state.stock.map((mItem, mIndex) => (action.index === mIndex) ? {
-                        ...mItem,
-                        inStock: mItem.inStock === 0 ? 0 : mItem.inStock - 1
-                    } : mItem
+                    ...mItem,
+                    inStock: mItem.inStock === 0 ? 0 : mItem.inStock - 1
+                } : mItem
                 ),
                 toPay: [..._addToCart].reduce((sum, next) => sum + next.price, 0)
             }
