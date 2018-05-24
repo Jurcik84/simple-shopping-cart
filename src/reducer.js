@@ -27,12 +27,10 @@ function addToCartReducer(state, action) {
         case "ADD_TO_CART":
 
             return [...state.cart, {
-                ...action.item
+                id: action.item.id,
             }];
-
         default:
             return [];
-
     }
 }
 
@@ -50,10 +48,15 @@ export function reducer(state = {}, action) {
 
         case "UPDATE_CART":
 
+
+            const { id, name, price } = action.item;
             return {
                 ...state,
-                cart: [...state.cart, { ...action.item }]
-
+                cart: [...state.cart, {
+                    id,
+                    name,
+                    price,
+                }]
             };
 
         case "CART_STATISTICS":
@@ -68,6 +71,14 @@ export function reducer(state = {}, action) {
 
                 }, {})
 
+            }
+
+
+        case "GET_NUMBER_OF_ITEMS_IN_CART":
+
+            return {
+                ...state,
+                inCart: state.cart.length
             }
 
 

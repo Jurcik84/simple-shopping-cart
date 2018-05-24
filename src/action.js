@@ -32,5 +32,11 @@ export function addToCart(item, index) {
             item,index
         })
 
+        dispatch({
+
+            type: 'GET_NUMBER_OF_ITEMS_IN_CART',
+            
+        })
+
     }
 }

@@ -16,12 +16,12 @@ export default  createStore(reducer, {
             inStock: 5
         },
         {
-            id: 1,
+            id: 2,
             name: 'iPad',
             price: 300,
             inStock: 5
         }, {
-            id: 1,
+            id: 3,
             name: 'iPod',
             price: 300,
             inStock: 5
@@ -31,7 +31,8 @@ export default  createStore(reducer, {
     itemCount: null,
     cart: [],
     toPay: 0,
-    basket: {}
+    basket: {},
+    inCart:0
 
 }
     , applyMiddleware(thunk)
